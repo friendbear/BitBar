@@ -44,6 +44,9 @@ print(content)
 for file in content:
     direc_name, direc = split_path(file)
     repo = git.Repo(direc)
+    if not repo.working_dir:
+        continue
+
     branches = repo.branches
     try:
         active_branch = repo.active_branch.name
@@ -52,12 +55,16 @@ for file in content:
     tags = repo.tags
     head = repo.head
     cur_tag = next((tag for tag in repo.tags if tag.commit == repo.head.commit), None)
-    
-    commits_ahead = repo.iter_commits('origin/master..master')
-    count1 = sum(1 for c in commits_ahead)
-    
-    commits_behind = repo.iter_commits('master..origin/master')
-    count2 = sum(1 for c in commits_behind)
+   
+    count1 = 0
+    commits_ahead = repo.iter_commits("origin/master..master")
+    if commits_ahead == "":
+        count1 = sum(1 for c in commits_ahead)
+
+    count2 = 0
+    commits_behind = repo.iter_commits("master..origin/master")
+    if commits_behind == "":
+        count2 = sum(1 for c in commits_behind)
     
     changedFiles = [ item.a_path for item in repo.index.diff(None) ]
     
