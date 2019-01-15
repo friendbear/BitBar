@@ -39,8 +39,6 @@ print("---")
 
 content = get_list_dir(path)
 
-print(content)
-
 for file in content:
     direc_name, direc = split_path(file)
     repo = git.Repo(direc)
