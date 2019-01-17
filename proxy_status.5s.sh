@@ -11,7 +11,8 @@
 
 interface="wi-fi" # You can also set this to e.g. "ethernet"
 
-proxy_type="SOCKS"
+#proxy_type="SOCKS"
+proxy_type=""
 proxy_get="-getsocksfirewallproxy"
 proxy_set="-setsocksfirewallproxystate"
 
